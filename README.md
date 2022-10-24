@@ -1,4 +1,4 @@
-# testcontainers-cloud-java-sample
+# testcontainers-cloud-nodejs-sample
 
 The current repository helps you to verify that you configured your [Testcontainers Cloud][tcc] agent correctly in your local environment.
 
