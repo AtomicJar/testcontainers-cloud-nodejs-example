@@ -4,7 +4,7 @@
   "description": "The current repository helps you to verify that you configured your [Testcontainers Cloud][tcc] agent correctly in your local environment.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest && cat src/prettyString.txt"
   },
   "repository": {
     "type": "git",
