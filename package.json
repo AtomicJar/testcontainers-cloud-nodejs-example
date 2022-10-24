@@ -1,0 +1,22 @@
+{
+  "name": "testcontainers-cloud-nodejs-sample",
+  "version": "1.0.0",
+  "description": "The current repository helps you to verify that you configured your [Testcontainers Cloud][tcc] agent correctly in your local environment.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AtomicJar/testcontainers-cloud-nodejs-sample.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AtomicJar/testcontainers-cloud-nodejs-sample/issues"
+  },
+  "homepage": "https://github.com/AtomicJar/testcontainers-cloud-nodejs-sample#readme",
+  "devDependencies": {
+    "jest": "^29.2.1"
+  }
+}
