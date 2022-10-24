@@ -7,7 +7,6 @@ describe('GenericContainer', () => {
     let redisClient;
 
     beforeAll(async () => {
-        jest.setTimeout(30000);
         container = await new GenericContainer('redis')
             .withExposedPorts(6379)
             .start();
@@ -25,14 +24,14 @@ describe('GenericContainer', () => {
 
     it('works', async () => {
         await redisClient.set('key', 'val');
-        expect(await redisClient.get('key')).toBe('val');
-        expect(await redisClient.get('other-key')).toBeNull();
+        let value = await redisClient.get('key');
+        await expect(value).toBe('val');
     });
 
     it('tcc cloud engine', async () => {
         const docker = new Docker();
         const info = await docker.info();
         const serverVersion = info.ServerVersion;
-        expect(serverVersion).toContain('testcontainerscloud');
+        await expect(serverVersion).toContain('testcontainerscloud');
     });
 });
