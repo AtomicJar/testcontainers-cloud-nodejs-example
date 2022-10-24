@@ -1,12 +1,12 @@
-# testcontainers-cloud-nodejs-sample
+# testcontainers-cloud-nodejs-example
 
 The current repository helps you to verify that you configured your [Testcontainers Cloud][tcc] agent correctly in your local environment.
 
 ## Clone the repository and run the first Testcontainer test suite
 
 ```
-git clone https://github.com/AtomicJar/testcontainers-cloud-nodejs-sample
-cd testcontainers-cloud-nodejs-sample
+git clone https://github.com/AtomicJar/testcontainers-cloud-nodejs-example
+cd testcontainers-cloud-nodejs-example
 npm install
 npm test
 ```

@@ -1,5 +1,5 @@
 {
-  "name": "testcontainers-cloud-nodejs-sample",
+  "name": "testcontainers-cloud-nodejs-example",
   "version": "1.0.0",
   "description": "The current repository helps you to verify that you configured your [Testcontainers Cloud][tcc] agent correctly in your local environment.",
   "main": "index.js",
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AtomicJar/testcontainers-cloud-nodejs-sample.git"
+    "url": "git+https://github.com/AtomicJar/testcontainers-cloud-nodejs-example.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AtomicJar/testcontainers-cloud-nodejs-sample/issues"
+    "url": "https://github.com/AtomicJar/testcontainers-cloud-nodejs-example/issues"
   },
-  "homepage": "https://github.com/AtomicJar/testcontainers-cloud-nodejs-sample#readme",
+  "homepage": "https://github.com/AtomicJar/testcontainers-cloud-nodejs-example#readme",
   "devDependencies": {
     "jest": "^29.2.1",
     "run-script-os": "^1.1.6",
