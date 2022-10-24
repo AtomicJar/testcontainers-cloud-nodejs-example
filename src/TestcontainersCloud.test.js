@@ -7,7 +7,7 @@ describe('GenericContainer', () => {
     let redisClient;
 
     beforeAll(async () => {
-        jest.setTimeout(10000);
+        jest.setTimeout(30000);
         container = await new GenericContainer('redis')
             .withExposedPorts(6379)
             .start();

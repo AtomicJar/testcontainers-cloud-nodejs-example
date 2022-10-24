@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "The current repository helps you to verify that you configured your [Testcontainers Cloud][tcc] agent correctly in your local environment.",
   "main": "index.js",
+  "engines" : {
+    "npm" : ">=8.0.0",
+    "node" : ">=16.0.0"
+  },
   "scripts": {
     "test": "run-script-os",
     "test:win32": "jest && type src/prettyString.txt",

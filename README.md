@@ -7,6 +7,7 @@ The current repository helps you to verify that you configured your [Testcontain
 ```
 git clone https://github.com/AtomicJar/testcontainers-cloud-nodejs-sample
 cd testcontainers-cloud-nodejs-sample
+npm install
 npm test
 ```
 
