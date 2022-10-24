@@ -4,7 +4,9 @@
   "description": "The current repository helps you to verify that you configured your [Testcontainers Cloud][tcc] agent correctly in your local environment.",
   "main": "index.js",
   "scripts": {
-    "test": "jest && cat src/prettyString.txt"
+    "test": "run-script-os",
+    "test:win32": "jest && type src/prettyString.txt",
+    "test:default": "jest && cat src/prettyString.txt"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,7 @@
   "homepage": "https://github.com/AtomicJar/testcontainers-cloud-nodejs-sample#readme",
   "devDependencies": {
     "jest": "^29.2.1",
+    "run-script-os": "^1.1.6",
     "testcontainers": "^8.16.0"
   },
   "dependencies": {
