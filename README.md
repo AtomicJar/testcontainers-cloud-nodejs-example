@@ -5,9 +5,9 @@ The current repository helps you to verify that you configured your [Testcontain
 ## Clone the repository and run the first Testcontainer test suite
 
 ```
-git clone https://github.com/AtomicJar/testcontainers-cloud-java-sample
-cd testcontainers-cloud-java-sample
-./gradlew test
+git clone https://github.com/AtomicJar/testcontainers-cloud-nodejs-sample
+cd testcontainers-cloud-nodejs-sample
+npm test
 ```
 
 ## Verify the agent is running
@@ -30,7 +30,7 @@ To download the agent for local usage, check the [download page here][tcc-downlo
 
 ## Run the test suite
 
-`./gradlew test`
+`npm test`
 
 ### Your environment is correctly configured if
 
