@@ -13,7 +13,7 @@ npm test
 
 ## Verify the agent is running
 
-✅ __Passive State__: Agent awaiting a Testcontainers test to be executed. 
+✅ __Passive State__: Agent awaiting a Testcontainers test to be executed.
 
 ![agent-running](./docs/passive-connection.png)
 
@@ -37,7 +37,38 @@ To download the agent for local usage, check the [download page here][tcc-downlo
 
 Test output:
 
-![success](./docs/success.png)
+```shell
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        10.065 s
+Ran all test suites.
+                                                     /
+                                                   /////////
+                                                ///////////////
+                                               /////////////////
+                                                  /////////////
+                                                 %%   ////   %
+                                                 %%    //   %%
+                                               %%      //      %
+                                             %%        ////      %
+                                             %     /////////     %
+                                              % /////////////// %%
+                                                %%%%%%%%%%%%%%%
+
+                /%%%%%%    /%%                             /%%              /%%%%%
+               /%%__  %%  | %%                            |__/             |__  %%
+              | %%  \\ %% /%%%%%%    /%%%%%%  /%%%%%%/%%%%  /%%  /%%%%%%%      | %%  /%%%%%%   /%%%%%%
+              | %%%%%%%%|_  %%_/   /%%__  %%| %%_  %%_  %%| %% /%%_____/      | %% |____  %% /%%__  %%
+              | %%__  %%  | %%    | %%  \\ %%| %% \\ %% \\ %%| %%| %%       /%%  | %%  /%%%%%%%| %%  \\__/
+              | %%  | %%  | %% /%%| %%  | %%| %% | %% | %%| %%| %%      | %%  | %% /%%__  %%| %%
+              | %%  | %%  |  %%%%/|  %%%%%%/| %% | %% | %%| %%|  %%%%%%%|  %%%%%%/|  %%%%%%%| %%
+              |__/  |__/   \\___/   \\______/ |__/ |__/ |__/|__/ \\_______/ \\______/  \\_______/|__/
+
+
+              Congratulations on running your first test on Testcontainers Cloud! 🎉
+              You can now return to the website to complete your onboarding.
+```
 
 Agent status:
 
