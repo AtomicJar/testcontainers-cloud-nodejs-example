@@ -1,5 +1,5 @@
 const { PostgreSqlContainer} = require('@testcontainers/postgresql');
-const Docker = require('dockerode');
+const { getContainerRuntimeClient } = require('testcontainers/build/container-runtime');
 const {fail} = require("assert");
 
 const logo = "\n" +
@@ -29,9 +29,9 @@ const ohNo = "" +
 
 describe('GenericContainer', () => {
     it('tcc cloud engine', async () => {
-        const docker = new Docker();
-        const info = await docker.info();
-        const serverVersion = info.ServerVersion;
+        const containerRuntime = await getContainerRuntimeClient();
+        const info = containerRuntime.info;
+        const serverVersion = info.containerRuntime.serverVersion;
         const isTestcontainersDesktop = serverVersion.includes('Testcontainers Desktop');
         const isTestcontainersCloud = serverVersion.includes('testcontainerscloud');
         if (!(isTestcontainersDesktop || isTestcontainersCloud)) {
