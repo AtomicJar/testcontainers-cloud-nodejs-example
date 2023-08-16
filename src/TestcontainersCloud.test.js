@@ -44,7 +44,7 @@ describe('GenericContainer', () => {
             runtimeName = serverVersion.os;
         }
         if (serverVersion.includes("Testcontainers Desktop")) {
-            runtimeName = "via Testcontainers Desktop app";
+            runtimeName += " via Testcontainers Desktop app";
         }
 
         console.log(logo.replace("::::::", runtimeName));
