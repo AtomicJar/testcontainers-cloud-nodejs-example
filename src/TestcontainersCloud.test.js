@@ -1,37 +1,83 @@
-const redis = require('async-redis');
-const { GenericContainer } = require('testcontainers');
+const { PostgreSqlContainer} = require('@testcontainers/postgresql');
 const Docker = require('dockerode');
+const {fail} = require("assert");
+
+const logo = "\n" +
+    "████████╗███████╗███████╗████████╗ ██████╗ ██████╗ ███╗   ██╗████████╗ █████╗ ██╗███╗   ██╗███████╗██████╗ ███████╗ \n" +
+    "╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔══██╗██║████╗  ██║██╔════╝██╔══██╗██╔════╝ \n" +
+    "   ██║   █████╗  ███████╗   ██║   ██║     ██║   ██║██╔██╗ ██║   ██║   ███████║██║██╔██╗ ██║█████╗  ██████╔╝███████╗ \n" +
+    "   ██║   ██╔══╝  ╚════██║   ██║   ██║     ██║   ██║██║╚██╗██║   ██║   ██╔══██║██║██║╚██╗██║██╔══╝  ██╔══██╗╚════██║ \n" +
+    "   ██║   ███████╗███████║   ██║   ╚██████╗╚██████╔╝██║ ╚████║   ██║   ██║  ██║██║██║ ╚████║███████╗██║  ██║███████║ \n" +
+    "   ╚═╝   ╚══════╝╚══════╝   ╚═╝    ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚══════╝ \n" +
+    "  \n" +
+    "  Congratulations on running your first test! 🎉\n" +
+    "  Runtime used: \n" +
+    "      ::::::\n" +
+    " \n" +
+    "  You can now return to the website to complete your onboarding.\n" +
+    " \n" +
+    "";
+
+const ohNo = "" +
+    " ██████╗ ██╗  ██╗    ███╗   ██╗ ██████╗               ██╗\n" +
+    "██╔═══██╗██║  ██║    ████╗  ██║██╔═══██╗    ██╗      ██╔╝\n" +
+    "██║   ██║███████║    ██╔██╗ ██║██║   ██║    ╚═╝█████╗██║ \n" +
+    "██║   ██║██╔══██║    ██║╚██╗██║██║   ██║    ██╗╚════╝██║ \n" +
+    "╚██████╔╝██║  ██║    ██║ ╚████║╚██████╔╝    ╚═╝      ╚██╗\n" +
+    " ╚═════╝ ╚═╝  ╚═╝    ╚═╝  ╚═══╝ ╚═════╝               ╚═╝\n" +
+    "                                                         ";
 
 describe('GenericContainer', () => {
-    let container;
-    let redisClient;
-
-    beforeAll(async () => {
-        container = await new GenericContainer('redis')
-            .withExposedPorts(6379)
-            .start();
-
-        redisClient = redis.createClient(
-            container.getMappedPort(6379),
-            container.getHost(),
-        );
-    });
-
-    afterAll(async () => {
-        await redisClient.quit();
-        await container.stop();
-    });
-
-    it('works', async () => {
-        await redisClient.set('key', 'val');
-        let value = await redisClient.get('key');
-        await expect(value).toBe('val');
-    });
-
     it('tcc cloud engine', async () => {
         const docker = new Docker();
         const info = await docker.info();
         const serverVersion = info.ServerVersion;
-        await expect(serverVersion).toContain('testcontainerscloud');
+        const isTestcontainersDesktop = serverVersion.includes('Testcontainers Desktop');
+        const isTestcontainersCloud = serverVersion.includes('testcontainerscloud');
+        if (!(isTestcontainersDesktop || isTestcontainersCloud)) {
+            console.log(ohNo)
+            fail()
+        }
+
+        let runtimeName = "Testcontainers Cloud";
+        if (!serverVersion.includes("testcontainerscloud")) {
+            runtimeName = serverVersion.os;
+        }
+        if (serverVersion.includes("Testcontainers Desktop")) {
+            runtimeName = "via Testcontainers Desktop app";
+        }
+
+        console.log(logo.replace("::::::", runtimeName));
+    });
+
+    it('create postgresql container', async () => {
+        const initScript = `
+            create table guides
+            (
+                id    bigserial     not null,
+                title varchar(1023) not null,
+                url   varchar(1023) not null,
+                primary key (id)
+            );
+
+            insert into guides(title, url)
+            values ('Getting started with Testcontainers',
+                    'https://testcontainers.com/getting-started/'),
+                   ('Getting started with Testcontainers for Java',
+                    'https://testcontainers.com/guides/getting-started-with-testcontainers-for-java/'),
+                   ('Getting started with Testcontainers for .NET',
+                    'https://testcontainers.com/guides/getting-started-with-testcontainers-for-dotnet/'),
+                   ('Getting started with Testcontainers for Node.js',
+                    'https://testcontainers.com/guides/getting-started-with-testcontainers-for-nodejs/'),
+                   ('Getting started with Testcontainers for Go',
+                    'https://testcontainers.com/guides/getting-started-with-testcontainers-for-go/'),
+                   ('Testcontainers container lifecycle management using JUnit 5',
+                    'https://testcontainers.com/guides/testcontainers-container-lifecycle/')
+            ;
+        `
+
+        await new PostgreSqlContainer("postgres:14-alpine")
+            .withCopyContentToContainer([{content: initScript, target: '/docker-entrypoint-initdb.d/init.sql'}])
+            .start();
     });
 });
