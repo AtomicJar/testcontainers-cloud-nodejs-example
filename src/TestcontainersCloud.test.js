@@ -31,7 +31,7 @@ describe('GenericContainer', () => {
     it('tcc cloud engine', async () => {
         const containerRuntime = await getContainerRuntimeClient();
         const info = containerRuntime.info;
-        const serverVersion = info.containerRuntime.serverVersion;
+        const { serverVersion, operatingSystem } = info.containerRuntime;
         const isTestcontainersDesktop = serverVersion.includes('Testcontainers Desktop');
         const isTestcontainersCloud = serverVersion.includes('testcontainerscloud');
         if (!(isTestcontainersDesktop || isTestcontainersCloud)) {
@@ -41,7 +41,7 @@ describe('GenericContainer', () => {
 
         let runtimeName = "Testcontainers Cloud";
         if (!serverVersion.includes("testcontainerscloud")) {
-            runtimeName = serverVersion.os;
+            runtimeName = operatingSystem;
         }
         if (serverVersion.includes("Testcontainers Desktop")) {
             runtimeName += " via Testcontainers Desktop app";
