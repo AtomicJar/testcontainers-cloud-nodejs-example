@@ -5,12 +5,13 @@ For details on how to bootstrap Testcontainers in an actual project, please refe
 
 ## Clone the repository and run the first Testcontainers test suite
 
-```
+```shell
 git clone https://github.com/AtomicJar/testcontainers-cloud-nodejs-example
 cd testcontainers-cloud-nodejs-example
-npm install
-npm test
+make test
 ```
+
+The `Make` command will install the dependencies and run the test suite.
 
 ## Run the test suite
 
