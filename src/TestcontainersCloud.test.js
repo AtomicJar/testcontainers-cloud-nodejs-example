@@ -1,6 +1,7 @@
 const redis = require('async-redis');
 const { GenericContainer } = require('testcontainers');
-const Docker = require('dockerode');
+const { OhNoMessage, getRuntimeLogo } = require('./prettyStrings');
+const { getContainerRuntimeClient } = require('testcontainers/build/container-runtime');
 
 describe('GenericContainer', () => {
     let container;
@@ -29,9 +30,25 @@ describe('GenericContainer', () => {
     });
 
     it('tcc cloud engine', async () => {
-        const docker = new Docker();
-        const info = await docker.info();
-        const serverVersion = info.ServerVersion;
-        await expect(serverVersion).toContain('testcontainerscloud');
+        const runtime = await getContainerRuntimeClient();
+        const info = runtime.info.containerRuntime;
+        const serverVersion = info.serverVersion;
+
+        const containsCloud = serverVersion.includes('testcontainerscloud');
+        const containsDesktop = serverVersion.includes('Testcontainers Desktop');
+
+        if (!(containsCloud || containsDesktop)) {
+            throw new Error(OhNoMessage);
+        }
+    
+        let expectedRuntime = "Testcontainers Cloud";
+        if (!containsCloud) {
+            expectedRuntime = info.operatingSystem;
+        }
+        if (containsDesktop) {
+            expectedRuntime += " via Testcontainers Desktop app";
+        }
+    
+        console.debug(getRuntimeLogo(expectedRuntime));
     });
 });
