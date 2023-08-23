@@ -9,8 +9,8 @@
   },
   "scripts": {
     "test": "run-script-os",
-    "test:win32": "jest --testTimeout=30000",
-    "test:default": "jest --testTimeout=30000"
+    "test:win32": "jest --testTimeout=30000 && type src/prettyString.txt",
+    "test:default": "jest --testTimeout=30000 && cat src/prettyString.txt"
   },
   "repository": {
     "type": "git",
