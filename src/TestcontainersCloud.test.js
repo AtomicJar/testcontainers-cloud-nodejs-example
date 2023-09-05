@@ -1,3 +1,4 @@
+const { Client } = require('pg');
 const { PostgreSqlContainer} = require('@testcontainers/postgresql');
 const { getContainerRuntimeClient } = require('testcontainers/build/container-runtime');
 const {fail} = require("assert");
@@ -76,8 +77,18 @@ describe('GenericContainer', () => {
             ;
         `
 
-        await new PostgreSqlContainer("postgres:14-alpine")
+        const container = await new PostgreSqlContainer("postgres:14-alpine")
             .withCopyContentToContainer([{content: initScript, target: '/docker-entrypoint-initdb.d/init.sql'}])
             .start();
+        const client = new Client({
+            connectionString: container.getConnectionUri(),
+        });
+        await client.connect();
+
+        const result = await client.query("SELECT COUNT(*) FROM guides");
+        expect(result.rows[0]).toEqual({ "count": "6" });
+
+        await client.end();
+        await container.stop();
     });
 });
