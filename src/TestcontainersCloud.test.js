@@ -28,24 +28,28 @@ const ohNo = "" +
     " ╚═════╝ ╚═╝  ╚═╝    ╚═╝  ╚═══╝ ╚═════╝               ╚═╝\n" +
     "                                                         ";
 
+const CLOUD_DOCKER_LABEL = "cloud.docker.run.version";
+
 describe('GenericContainer', () => {
     it('tcc cloud engine', async () => {
         const containerRuntime = await getContainerRuntimeClient();
         const info = containerRuntime.info;
-        const { serverVersion, operatingSystem } = info.containerRuntime;
+        const { serverVersion, operatingSystem, labels } = info.containerRuntime;
+
+        const isWithCloudLabel = labels && labels.find(label => label.includes(CLOUD_DOCKER_LABEL));
         const isTestcontainersDesktop = serverVersion.includes('Testcontainers Desktop');
         const isTestcontainersCloud = serverVersion.includes('testcontainerscloud');
-        if (!(isTestcontainersDesktop || isTestcontainersCloud)) {
+        if (!(isTestcontainersDesktop || isTestcontainersCloud || isWithCloudLabel)) {
             console.log(ohNo)
             fail()
         }
 
         let runtimeName = "Testcontainers Cloud";
-        if (!serverVersion.includes("testcontainerscloud")) {
+        if (!isTestcontainersCloud && !isWithCloudLabel) {
             runtimeName = operatingSystem;
         }
         if (serverVersion.includes("Testcontainers Desktop")) {
-            runtimeName += " via Testcontainers Desktop app";
+            runtimeName += " via Testcontainers Desktop";
         }
 
         console.log(logo.replace("::::::", runtimeName));
