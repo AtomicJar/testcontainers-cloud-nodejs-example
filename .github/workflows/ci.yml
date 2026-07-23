@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -16,9 +17,10 @@ jobs:
         with:
           node-version: '20.x'
       - name: Setup Testcontainers Cloud Client
-        uses: atomicjar/testcontainers-cloud-setup-action@main
+        uses: atomicjar/testcontainers-cloud-setup-action@v1
         with:
-          token: ${{ secrets.TCC_SECRET_EXAMPLES }}
+          token: ${{ secrets.TC_CLOUD_TOKEN }}
+          wait: true
       - name: Run example
         run: |
           make test
