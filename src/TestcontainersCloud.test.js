@@ -81,7 +81,7 @@ describe('GenericContainer', () => {
             ;
         `
 
-        const container = await new PostgreSqlContainer("postgres:14-alpine")
+        const container = await new PostgreSqlContainer("cgr.dev/chainguard/postgres:latest")
             .withCopyContentToContainer([{content: initScript, target: '/docker-entrypoint-initdb.d/init.sql'}])
             .start();
         const client = new Client({
